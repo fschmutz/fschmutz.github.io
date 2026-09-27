@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fschmutz.github.io/sitemap.xml

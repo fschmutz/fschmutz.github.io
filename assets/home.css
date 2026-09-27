@@ -1,0 +1,240 @@
+/* Slate surfaces, one indigo accent, dark by default — same family as the Arcade pages. */
+
+html { color-scheme: dark; }
+html:not(.dark) { color-scheme: light; }
+
+/* SVG elements do not get the UA rule for the hidden attribute. */
+[hidden] { display: none !important; }
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter var", Inter, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 16px 24px;
+  box-sizing: border-box;
+  background: #0a0a0f;
+  color: #e2e8f0;
+  background-image:
+    radial-gradient(at 12% 14%, rgba(99, 102, 241, 0.14) 0, transparent 45%),
+    radial-gradient(at 88% 10%, rgba(236, 72, 153, 0.09) 0, transparent 50%),
+    radial-gradient(at 50% 96%, rgba(34, 211, 238, 0.10) 0, transparent 45%);
+  background-attachment: fixed;
+}
+
+html:not(.dark) body {
+  background: #f6f7fb;
+  color: #0f172a;
+  background-image:
+    radial-gradient(at 12% 14%, rgba(99, 102, 241, 0.10) 0, transparent 45%),
+    radial-gradient(at 88% 10%, rgba(236, 72, 153, 0.06) 0, transparent 50%);
+}
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid #818cf8; outline-offset: 3px; border-radius: 4px; }
+html:not(.dark) :focus-visible { outline-color: #4f46e5; }
+
+body.center { justify-content: center; }
+
+.shell {
+  width: min(94vw, 1120px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Header */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bar .title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.bar h1 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+.bar .role {
+  margin: 2px 0 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+}
+html:not(.dark) .bar .role { color: #475569; }
+.mark { flex: none; width: 40px; height: 40px; border-radius: 0.6rem; }
+.actions { display: flex; align-items: center; gap: 8px; }
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+html:not(.dark) .icon-btn { border-color: #e2e8f0; }
+.icon-btn:hover { background: rgba(99, 102, 241, 0.14); border-color: #6366f1; }
+
+/* Intro */
+.intro {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+html:not(.dark) .intro { color: #475569; }
+.intro strong { color: #e2e8f0; font-weight: 600; }
+html:not(.dark) .intro strong { color: #0f172a; }
+
+/* Card grid: one column on a phone, then as many 250px tracks as fit. */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 0.6rem;
+  padding: 0.9rem;
+}
+html:not(.dark) .card { background: #fff; border-color: #e2e8f0; }
+
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.project:hover { transform: translateY(-2px); border-color: #818cf8; }
+html:not(.dark) .project:hover { border-color: #6366f1; }
+
+.project .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.4rem;
+  border: 1px solid #1e293b;
+}
+html:not(.dark) .project .thumb { border-color: #e2e8f0; }
+
+.project .kind {
+  margin: 2px 0 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #94a3b8;
+}
+html:not(.dark) .project .kind { color: #64748b; }
+.project h2 { margin: 0; font-size: 1.05rem; letter-spacing: -0.01em; }
+.project p.blurb { margin: 0; font-size: 0.85rem; line-height: 1.55; color: #94a3b8; }
+html:not(.dark) .project p.blurb { color: #475569; }
+
+.project .links {
+  margin-top: auto;
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.project .open { color: #a5b4fc; text-decoration: none; }
+html:not(.dark) .project .open { color: #4f46e5; }
+.project .open:hover { text-decoration: underline; }
+.project .source { color: #94a3b8; font-weight: 500; text-decoration: none; }
+html:not(.dark) .project .source { color: #64748b; }
+.project .source:hover { color: #22d3ee; text-decoration: underline; }
+html:not(.dark) .project .source:hover { color: #0e7490; }
+
+/* Footer */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid #1e293b;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+html:not(.dark) .foot { border-top-color: #e2e8f0; color: #475569; }
+.foot .name {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background-image: linear-gradient(90deg, #818cf8, #ec4899, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* The pastel gradient washes out on the light background, so darken every stop.
+   Only the image: the shorthand would reset background-clip and paint a block. */
+html:not(.dark) .foot .name { background-image: linear-gradient(90deg, #4f46e5, #be185d, #0e7490); }
+.foot a { color: #94a3b8; text-decoration: none; }
+.foot a:hover { color: #a5b4fc; text-decoration: underline; }
+html:not(.dark) .foot a { color: #475569; }
+html:not(.dark) .foot a:hover { color: #4f46e5; }
+
+/* 404 */
+.lost { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.lost svg { width: min(88vw, 360px); height: auto; }
+.lost h1 { margin: 0; font-size: 1.4rem; }
+.lost p { margin: 0; color: #94a3b8; }
+html:not(.dark) .lost p { color: #475569; }
+.lost .back { font-weight: 600; color: #a5b4fc; text-decoration: none; }
+html:not(.dark) .lost .back { color: #4f46e5; }
+
+/* One column left: lay the card out as a row so seven of them stay scrollable. */
+@media (max-width: 530px) {
+  .project {
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    grid-template-areas:
+      "thumb kind"
+      "thumb name"
+      "thumb blurb"
+      "links links";
+    align-content: start;
+    column-gap: 12px;
+    row-gap: 3px;
+  }
+  .project .thumb { grid-area: thumb; align-self: start; }
+  .project .kind { grid-area: kind; margin: 0; }
+  .project h2 { grid-area: name; }
+  .project .blurb { grid-area: blurb; margin-top: 3px; }
+  .project .links { grid-area: links; margin-top: 10px; padding-top: 0; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 18px 12px 18px; gap: 14px; }
+  .shell { gap: 18px; }
+  .bar h1 { font-size: 1.15rem; }
+  .intro { font-size: 0.93rem; }
+  .foot { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project { transition: none; }
+  .project:hover { transform: none; }
+}
