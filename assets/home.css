@@ -205,7 +205,7 @@ html:not(.dark) .lost p { color: #475569; }
 .lost .back { font-weight: 600; color: #a5b4fc; text-decoration: none; }
 html:not(.dark) .lost .back { color: #4f46e5; }
 
-/* One column left: lay the card out as a row so seven of them stay scrollable. */
+/* One column left: lay the card out as a row so eight of them stay scrollable. */
 @media (max-width: 530px) {
   .project {
     display: grid;
