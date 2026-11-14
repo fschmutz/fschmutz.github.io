@@ -1,0 +1,203 @@
+{
+  "site": {
+    "origin": "https://fschmutz.github.io",
+    "owner": "fschmutz",
+    "lastmod": "2026-11-14"
+  },
+  "inclusion": {
+    "rule": "A card exists for every public repository owned by fschmutz that is not a fork, not archived, and has something a visitor can actually use: a GitHub Pages site, a downloadable artefact, or a single self-contained file. Forks are never listed, however much they are used, because the work is someone else's. A repository that only supports another card — a Homebrew tap, a release channel — is folded into that card instead of getting one of its own. tools/check.py enforces the Pages half of this rule and reads the omissions list below for the rest.",
+    "omissions": [
+      {
+        "repo": "fschmutz.github.io",
+        "reason": "This site. It is the page, not an item on it."
+      },
+      {
+        "repo": "homebrew-tap",
+        "reason": "Install channel for claude-usage-panel, not a project. Folded into that card as the brew line."
+      },
+      {
+        "repo": "agent-orchestrator",
+        "reason": "Fork of OrchestratorInc/agent-orchestrator with no commits of its own. Not Falco's work, so the no-forks rule applies even though it is useful."
+      },
+      {
+        "repo": "csvtomt940",
+        "reason": "Fork."
+      },
+      {
+        "repo": "nextjs-starter-medusa",
+        "reason": "Fork."
+      },
+      {
+        "repo": "Spotlight-Desktop",
+        "reason": "Fork."
+      },
+      {
+        "repo": "VoiceStudio",
+        "reason": "Fork."
+      }
+    ]
+  },
+  "groups": [
+    {
+      "id": "games",
+      "name": "Games",
+      "tagline": "Pick up, play, close the tab. No account, no scoreboard in the cloud.",
+      "items": [
+        {
+          "slug": "arcade",
+          "repo": "ARCADE-GAMES",
+          "name": "Arcade",
+          "kind": "Four browser games",
+          "lang": "fr",
+          "summary": "Snake, Pac-Man, a highway racer and Casse-briques in one page, keyboard or thumb, still playable with the network off.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/ARCADE-GAMES/",
+          "source": "https://github.com/fschmutz/ARCADE-GAMES",
+          "lastmod": "2026-11-09"
+        },
+        {
+          "slug": "calcul-flash",
+          "repo": "calcul-flash",
+          "name": "Calcul Flash",
+          "kind": "Mental math",
+          "lang": "fr",
+          "summary": "Sixty seconds to chain as many correct mental-math answers as you can, scored like an arcade cabinet.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/calcul-flash/",
+          "source": "https://github.com/fschmutz/calcul-flash",
+          "lastmod": "2026-09-24"
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "tagline": "Drills that fit in a break. Every answer stays on the device.",
+      "items": [
+        {
+          "slug": "shortcut-flash",
+          "repo": "shortcut-flash",
+          "name": "Raccourcis Flash",
+          "kind": "Keyboard shortcuts",
+          "lang": "fr",
+          "summary": "A quest, a handful of missions and a boss fight that drill keyboard shortcuts into 10 to 15 year olds.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/shortcut-flash/",
+          "source": "https://github.com/fschmutz/shortcut-flash",
+          "lastmod": "2026-09-08"
+        },
+        {
+          "slug": "physique-flash",
+          "repo": "physique-flash",
+          "name": "Physique Flash",
+          "kind": "6ème physics",
+          "lang": "fr",
+          "summary": "Sixty seconds of trajectories, V = d/t and unit conversions, then a replay of only the questions you missed.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/physique-flash/",
+          "source": "https://github.com/fschmutz/physique-flash",
+          "lastmod": "2026-10-04"
+        },
+        {
+          "slug": "english-flash",
+          "repo": "english-flash",
+          "name": "English Flash",
+          "kind": "6ème English",
+          "lang": "fr",
+          "summary": "Sixty seconds of Unit 4 English — telling the time, daily routine, spelling at the keyboard — then a replay of the ones you missed.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/english-flash/",
+          "source": "https://github.com/fschmutz/english-flash",
+          "lastmod": "2026-11-14"
+        },
+        {
+          "slug": "deonto-flash",
+          "repo": "deonto-flash",
+          "name": "Déonto Flash",
+          "kind": "Bar exam trainer",
+          "lang": "fr",
+          "summary": "The 34 syllabus topics of the French bar's déontologie oral, on FSRS-6 spaced repetition, with a 30-minute simulator.",
+          "action": "Open",
+          "url": "https://fschmutz.github.io/deonto-flash/",
+          "source": "https://github.com/fschmutz/deonto-flash",
+          "lastmod": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "name": "Sound & voice",
+      "tagline": "Web Audio, headphones on. Nothing is recorded or uploaded.",
+      "items": [
+        {
+          "slug": "deep-peace",
+          "repo": "DEEP-PEACE",
+          "name": "Deep Peace",
+          "kind": "Yoga sound app",
+          "lang": null,
+          "summary": "A low drone, a binaural beat and a slow breathing guide in one file: add it to the Home Screen and it plays offline, screen locked.",
+          "action": "Open",
+          "url": "https://fschmutz.github.io/DEEP-PEACE/",
+          "source": "https://github.com/fschmutz/DEEP-PEACE",
+          "lastmod": "2026-11-07"
+        },
+        {
+          "slug": "vocal-range-detector",
+          "repo": "vocal-range-detector",
+          "name": "Vocal Range Detector",
+          "kind": "Voice tool",
+          "lang": null,
+          "summary": "Sing your lowest and your highest note and read your classical Fach straight off the chart. The pitch analysis never leaves the tab.",
+          "action": "Open",
+          "url": "https://fschmutz.github.io/vocal-range-detector/",
+          "source": "https://github.com/fschmutz/vocal-range-detector",
+          "lastmod": "2026-08-19"
+        }
+      ]
+    },
+    {
+      "id": "developer-tools",
+      "name": "Developer tools",
+      "tagline": "Things that live on your own machine.",
+      "items": [
+        {
+          "slug": "claude-usage-panel",
+          "repo": "claude-usage-panel",
+          "name": "Claude Usage Panel",
+          "kind": "Menu bar app + MCP",
+          "lang": null,
+          "summary": "Your Claude Code session, weekly and per-model limits in the GNOME top bar or the macOS menu bar, with burn-rate forecasts.",
+          "action": "Open",
+          "url": "https://fschmutz.github.io/claude-usage-panel/",
+          "source": "https://github.com/fschmutz/claude-usage-panel",
+          "lastmod": "2026-11-10",
+          "install": {
+            "label": "Install on macOS",
+            "command": "brew install --cask fschmutz/tap/claude-usage-panel",
+            "note": "Cask published by the release workflow to the fschmutz/homebrew-tap repository.",
+            "tap": "https://github.com/fschmutz/homebrew-tap"
+          }
+        }
+      ]
+    },
+    {
+      "id": "odds-and-ends",
+      "name": "Odds & ends",
+      "tagline": "Small enough to be one file.",
+      "items": [
+        {
+          "slug": "founder-bot-meme",
+          "repo": "founder-bot-meme",
+          "name": "Founder Bot",
+          "kind": "Meme, one PNG",
+          "lang": null,
+          "summary": "The 23:00 question every founder eventually asks: hire another human, or a specialist bot?",
+          "action": "View",
+          "url": "https://github.com/fschmutz/founder-bot-meme/blob/main/falco-founder-bot-meme.png",
+          "source": "https://github.com/fschmutz/founder-bot-meme",
+          "lastmod": "2026-09-18"
+        }
+      ]
+    }
+  ]
+}

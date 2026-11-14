@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150">
+  <defs>
+    <linearGradient id="vocal-range-detector-grad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="150" fill="#0b1220"/>
+  <g fill="#334155">
+    <rect x="22" y="40" width="196" height="1.5"/>
+    <rect x="22" y="56" width="196" height="1.5"/>
+    <rect x="22" y="72" width="196" height="1.5"/>
+    <rect x="22" y="88" width="196" height="1.5"/>
+    <rect x="22" y="104" width="196" height="1.5"/>
+  </g>
+  <rect x="56" y="44" width="16" height="66" rx="8" fill="url(#vocal-range-detector-grad)" opacity="0.85"/>
+  <circle cx="64" cy="48" r="7" fill="#ec4899"/>
+  <circle cx="64" cy="106" r="7" fill="#22d3ee"/>
+  <path d="M100 72 C108 46 116 98 124 72 C132 44 140 100 148 72 C156 50 164 94 172 72 C180 56 188 88 196 72 C202 64 210 78 216 72" fill="none" stroke="#a5b4fc" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
