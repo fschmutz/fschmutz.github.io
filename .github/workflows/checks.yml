@@ -1,0 +1,45 @@
+name: checks
+
+# Two things can quietly rot here: a new public project never reaches the page,
+# and a link that used to work stops working. Both are caught on every pull
+# request, and again every Monday because the second one happens on its own.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # index.html, sitemap.xml and the JSON-LD are generated from
+      # projects.json, so a hand edit to any of them has to be caught here.
+      - name: Generated files match projects.json
+        run: python3 tools/site.py check
+
+      # GITHUB_TOKEN only lifts the API rate limit; the repository list it
+      # reads is public either way.
+      - name: Every public Pages repository has a card
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 tools/check.py --repos
+
+      - name: Every link answers 200
+        run: python3 tools/check.py --links
+
