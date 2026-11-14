@@ -1,8 +1,9 @@
 name: checks
 
-# Two things can quietly rot here: a new public project never reaches the page,
-# and a link that used to work stops working. Both are caught on every pull
-# request, and again every Monday because the second one happens on its own.
+# Three things can quietly rot here: a new public project never reaches the
+# page, a link that used to work stops working, and a stacking-context change
+# breaks the card's stretched link. All are caught on every pull request, and
+# again every Monday because the second one happens on its own.
 on:
   pull_request:
   push:
@@ -43,3 +44,26 @@ jobs:
       - name: Every link answers 200
         run: python3 tools/check.py --links
 
+  # The whole card is a link and the Source link sits on top of it. That is a
+  # stacking-context arrangement, which only a browser can really confirm.
+  flows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The runner image already ships Node; playwright is the only dependency
+      # and it is pinned in package-lock.json.
+      - name: Install Playwright
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # Serves the repository itself and stubs every other host, so no click
+      # in this job reaches the network.
+      - name: Card interactions
+        run: node tools/flow-check.mjs
