@@ -121,7 +121,8 @@ asserts that a click on an empty corner and a click on the thumbnail both open t
 project's URL, that the `Source` link opens the repository instead, that the install
 command and its Copy button are not swallowed by the overlay, and that <kbd>Tab</kbd>
 reaches the card link and then its `Source` link. A hit-test samples every card on a 6 px
-grid at 320, 390 and 1280 px, light and dark: `elementFromPoint` must land on the card's
+grid at 320, 390, 768, 900 and
+1280 px, light and dark: `elementFromPoint` must land on the card's
 link or on one of the three lifted controls, so a dead strip anywhere fails the build. The
 same pass fails a group that leaves an empty grid track. A hovered pass repeats the grid at
 768, 1024 and 1280 px with each card in `:hover` (forced through DevTools), and moves the
