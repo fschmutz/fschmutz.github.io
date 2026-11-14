@@ -1,0 +1,5 @@
+# Playwright, installed only to run tools/flow-check.mjs.
+node_modules/
+
+# Byte-compiled Python from tools/.
+__pycache__/
