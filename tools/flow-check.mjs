@@ -283,16 +283,28 @@ for (const width of VIEWPORTS) {
   for (const colorScheme of SCHEMES) {
     const { context, page } = await open({ viewport: { width, height: 900 }, colorScheme });
     report(await deadPoints(page), `${width}px ${colorScheme}`);
-    // Same pass, same widths: a group whose cards do not fill their last row
-    // leaves an empty track that reads as a missing project.
-    const rows = await page.locator('.cards').evaluateAll((lists) => lists.map((list) => ({
-      group: list.closest('.group')?.querySelector('h2')?.textContent ?? '?',
-      cards: list.children.length,
-      columns: getComputedStyle(list).gridTemplateColumns.split(' ').length,
-    })));
-    const ragged = rows.filter((row) => row.cards % row.columns !== 0);
-    if (!ragged.length) pass(`${width}px ${colorScheme}: every group fills its last row`);
-    for (const row of ragged) fail(`${width}px ${colorScheme}: ${row.group} puts ${row.cards} cards in ${row.columns} columns and leaves a gap`);
+    // Same pass, same widths: a group whose cards do not fill a row leaves
+    // an empty track that reads as a missing project. Measured, not counted:
+    // cards can span tracks, so every row's cards have to reach both edges of
+    // their list.
+    const ragged = await page.locator('.cards').evaluateAll((lists) => lists.flatMap((list) => {
+      const group = list.closest('.group')?.querySelector('h2')?.textContent ?? '?';
+      const edge = list.getBoundingClientRect();
+      const rows = new Map();
+      for (const card of list.children) {
+        const box = card.getBoundingClientRect();
+        const key = Math.round(box.top);
+        rows.set(key, [...(rows.get(key) ?? []), box]);
+      }
+      return [...rows.values()].flatMap((row, index) => {
+        const left = Math.min(...row.map((box) => box.left));
+        const right = Math.max(...row.map((box) => box.right));
+        const gap = Math.round(edge.right - right + left - edge.left);
+        return gap > 1 ? [{ group, row: index + 1, cards: row.length, gap }] : [];
+      });
+    }));
+    if (!ragged.length) pass(`${width}px ${colorScheme}: every row of every group is full`);
+    for (const row of ragged) fail(`${width}px ${colorScheme}: ${row.group} row ${row.row} (${row.cards} cards) leaves ${row.gap}px of empty track`);
     await context.close();
   }
 }
@@ -371,16 +383,25 @@ console.log('keyboard — card link, then its Source link');
     const card = page.locator('.card').nth(index);
     await card.locator('.name .go').focus();
     const first = await page.evaluate(() => document.activeElement.getAttribute('href'));
-    await page.keyboard.press('Tab');
-    const second = await page.evaluate(() => ({
+    const focused = () => page.evaluate(() => ({
       href: document.activeElement.getAttribute('href'),
       klass: document.activeElement.className,
     }));
+    await page.keyboard.press('Tab');
+    let second = await focused();
+    // A card with an install line has its Copy button in between, in
+    // reading order. It has to be this card's own, then Source follows.
+    let via = '';
+    if (second.klass.includes('copy') && await card.locator('.copy').evaluate((button) => button === document.activeElement)) {
+      via = ' → Copy';
+      await page.keyboard.press('Tab');
+      second = await focused();
+    }
     const item = items[index];
     if (first !== item.url) {
       fail(`card ${index + 1}: focusing the heading link reached ${first}, expected ${item.url}`);
     } else if (second.klass.includes('src') && second.href === item.source) {
-      pass(`card ${index + 1}: Tab goes ${item.url} → Source (${item.source})`);
+      pass(`card ${index + 1}: Tab goes ${item.url}${via} → Source (${item.source})`);
     } else {
       fail(`card ${index + 1}: after the card link Tab reached ${second.href}, expected Source ${item.source}`);
     }

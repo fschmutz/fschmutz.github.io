@@ -19,29 +19,25 @@
   </g>
   <rect x="138" y="138" width="12" height="12" rx="3" fill="#ec4899"/>
   <text x="196" y="124" font-size="60" font-weight="700" fill="#e2e8f0">Falco Schmutz</text>
-  <text x="200" y="152" font-size="20" font-weight="700" letter-spacing="3.4" fill="#94a3b8">GAMES · LEARNING · SOUND · DEVELOPER TOOLS</text>
+  <text x="200" y="152" font-size="20" font-weight="700" letter-spacing="3.4" fill="#94a3b8">LEARN · PLAY · TOOL</text>
   <text x="80" y="226" font-size="34" fill="#cbd5e1">10 free, open-source things for the browser.</text>
   <text x="80" y="268" font-size="34" fill="#94a3b8">No account, no tracking, most of them work offline.</text>
   <rect x="80" y="292" width="34" height="4" rx="2" fill="#818cf8"/>
-  <text x="80" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#818cf8">GAMES</text>
-  <text x="80" y="350" font-size="22" fill="#e2e8f0">Arcade <tspan fill="#7c8aa0">[FR]</tspan></text>
-  <text x="80" y="378" font-size="22" fill="#e2e8f0">Calcul Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="80" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#818cf8">LEARN</text>
+  <text x="80" y="350" font-size="22" fill="#e2e8f0">Calcul Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="80" y="378" font-size="22" fill="#e2e8f0">Physique Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="80" y="406" font-size="22" fill="#e2e8f0">English Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="80" y="434" font-size="22" fill="#e2e8f0">Raccourcis Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="80" y="462" font-size="22" fill="#e2e8f0">Déonto Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
   <rect x="456" y="292" width="34" height="4" rx="2" fill="#22d3ee"/>
-  <text x="456" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#22d3ee">LEARNING</text>
-  <text x="456" y="350" font-size="22" fill="#e2e8f0">Raccourcis Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
-  <text x="456" y="378" font-size="22" fill="#e2e8f0">Physique Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
-  <text x="456" y="406" font-size="22" fill="#e2e8f0">English Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
-  <text x="456" y="434" font-size="22" fill="#e2e8f0">Déonto Flash <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="456" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#22d3ee">PLAY</text>
+  <text x="456" y="350" font-size="22" fill="#e2e8f0">Arcade <tspan fill="#7c8aa0">[FR]</tspan></text>
+  <text x="456" y="378" font-size="22" fill="#e2e8f0">Founder Bot</text>
   <rect x="832" y="292" width="34" height="4" rx="2" fill="#f472b6"/>
-  <text x="832" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#f472b6">SOUND &amp; VOICE</text>
+  <text x="832" y="316" font-size="19" font-weight="700" letter-spacing="2.6" fill="#f472b6">TOOL</text>
   <text x="832" y="350" font-size="22" fill="#e2e8f0">Deep Peace</text>
   <text x="832" y="378" font-size="22" fill="#e2e8f0">Vocal Range Detector</text>
-  <rect x="80" y="456" width="34" height="4" rx="2" fill="#4ade80"/>
-  <text x="80" y="480" font-size="19" font-weight="700" letter-spacing="2.6" fill="#4ade80">DEVELOPER TOOLS</text>
-  <text x="80" y="514" font-size="22" fill="#e2e8f0">Claude Usage Panel</text>
-  <rect x="456" y="456" width="34" height="4" rx="2" fill="#fbbf24"/>
-  <text x="456" y="480" font-size="19" font-weight="700" letter-spacing="2.6" fill="#fbbf24">ODDS &amp; ENDS</text>
-  <text x="456" y="514" font-size="22" fill="#e2e8f0">Founder Bot</text>
+  <text x="832" y="406" font-size="22" fill="#e2e8f0">Claude Usage Panel</text>
   <rect x="80" y="538" width="1040" height="1" fill="#1e293b"/>
   <text x="80" y="582" font-size="27" font-weight="700" fill="#a5b4fc">fschmutz.github.io</text>
   <text x="1120" y="582" font-size="23" text-anchor="end" fill="#64748b">github.com/fschmutz</text>

@@ -452,13 +452,15 @@ main { display: flex; flex-direction: column; gap: 26px; }
    stacking it; below this the phone layout is the better use of the width. */
 @media (min-width: 680px) {
   /* Two columns until 1000px. auto-fill went to three from about 850px,
-     where neither a group of two nor one of four fills its rows. */
+     where most group sizes leave a ragged last row. */
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
 
   /* Room for a full-width thumbnail: stack the card instead. */
   .card {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "thumb" "kind" "name" "summary" "install" "links";
+    /* Spare height in a row goes above Source, not between the rows. */
+    grid-template-rows: auto auto auto auto auto 1fr;
     align-content: stretch;
     row-gap: 7px;
     padding: 0.85rem;
@@ -471,40 +473,27 @@ main { display: flex; flex-direction: column; gap: 26px; }
   .kind { margin-top: 1px; }
   .summary { margin-top: 0; }
   .links { margin-top: auto; padding-top: 4px; }
-
-  /* A group of one would leave the second track empty: it gets a single
-     wide card instead, thumbnail on the left and text on the right. */
-  .cards:has(> .card:only-child) { grid-template-columns: minmax(0, 1fr); }
-  .cards:has(> .card:only-child) > .card {
-    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-    grid-template-areas:
-      "thumb kind"
-      "thumb name"
-      "thumb summary"
-      "thumb install"
-      "thumb links";
-    grid-template-rows: auto auto auto auto 1fr;
-    column-gap: 16px;
-    align-content: start;
-  }
-  .cards:has(> .card:only-child) .summary { max-width: 62ch; }
 }
 
 /* Three is the widest the grid goes: a fourth track makes a two-card group
    look like a mistake, and a 360px card reads better than a 270px one. */
 @media (min-width: 1000px) {
-  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+  /* Six tracks, a card spans two: three to a row. */
+  .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 15px; }
+  .card { grid-column: span 2; }
   .group-head { margin-bottom: 13px; }
   .name { font-size: 1.05rem; }
+}
 
-  /* A group whose count does not fill rows of three would leave an empty
-     track. One, two or four cards get a wide card instead (thumbnail on the
-     left, text on the right) in one or two columns, so every row is full. */
-  .cards:has(> .card:only-child) { grid-template-columns: minmax(0, 1fr); }
-  .cards:has(> .card:nth-child(2):last-child),
-  .cards:has(> .card:nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cards:has(> .card:nth-child(2):last-child) > .card,
-  .cards:has(> .card:nth-child(4):last-child) > .card {
+/* No empty track, whatever a group's size. When a group's last row is short,
+   its cards widen to fill it and take the wide layout, thumbnail on the left
+   and text on the right, rather than stretching a stacked card. Pure
+   nth-child arithmetic, so no :has() is needed. tools/flow-check.mjs measures
+   every row against its list at 768, 900 and 1280 px. */
+@media (min-width: 680px) and (max-width: 999.98px) {
+  /* Two columns: an odd last card takes the whole row. */
+  .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .card:last-child:nth-child(odd) {
     grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
     grid-template-areas:
       "thumb kind"
@@ -516,7 +505,30 @@ main { display: flex; flex-direction: column; gap: 26px; }
     column-gap: 16px;
     align-content: start;
   }
-  .cards:has(> .card:only-child) > .card { grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); }
+  .card:last-child:nth-child(odd) .summary { max-width: 62ch; }
+}
+
+@media (min-width: 1000px) {
+  /* Two left over: half a row each. One left over: the whole row. */
+  .card:nth-last-child(2):nth-child(3n + 1),
+  .card:nth-last-child(2):nth-child(3n + 1) + .card { grid-column: span 3; }
+  .card:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  .card:nth-last-child(2):nth-child(3n + 1),
+  .card:nth-last-child(2):nth-child(3n + 1) + .card,
+  .card:last-child:nth-child(3n + 1) {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    grid-template-areas:
+      "thumb kind"
+      "thumb name"
+      "thumb summary"
+      "thumb install"
+      "thumb links";
+    grid-template-rows: auto auto auto auto 1fr;
+    column-gap: 16px;
+    align-content: start;
+  }
+  .card:last-child:nth-child(3n + 1) { grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); }
+  .card:last-child:nth-child(3n + 1) .summary { max-width: 62ch; }
 }
 
 @media (prefers-reduced-motion: reduce) {
