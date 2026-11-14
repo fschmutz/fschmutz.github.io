@@ -296,6 +296,9 @@ main { display: flex; flex-direction: column; gap: 26px; }
   z-index: 1;
 }
 .card:hover .name .go { color: var(--accent); }
+/* The last word and the arrow wrap together, so the arrow never ends up
+   alone on a line of its own. */
+.name .tail { white-space: nowrap; }
 .arrow { display: inline-block; margin-left: 5px; transition: transform 0.15s ease; }
 .card:hover .arrow { transform: translateX(3px); }
 
@@ -471,6 +474,29 @@ main { display: flex; flex-direction: column; gap: 26px; }
   .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
   .group-head { margin-bottom: 13px; }
   .name { font-size: 1.05rem; }
+
+  /* A group whose count does not fill rows of three would leave an empty
+     track. One, two or four cards get a wide card instead (thumbnail on the
+     left, text on the right) in one or two columns, so every row is full. */
+  .cards:has(> .card:only-child) { grid-template-columns: minmax(0, 1fr); }
+  .cards:has(> .card:nth-child(2):last-child),
+  .cards:has(> .card:nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards:has(> .card:only-child) > .card,
+  .cards:has(> .card:nth-child(2):last-child) > .card,
+  .cards:has(> .card:nth-child(4):last-child) > .card {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    grid-template-areas:
+      "thumb kind"
+      "thumb name"
+      "thumb summary"
+      "thumb install"
+      "thumb links";
+    grid-template-rows: auto auto auto auto 1fr;
+    column-gap: 16px;
+    align-content: start;
+  }
+  .cards:has(> .card:only-child) > .card { grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); }
+  .cards:has(> .card:only-child) .summary { max-width: 62ch; }
 }
 
 @media (prefers-reduced-motion: reduce) {

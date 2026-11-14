@@ -120,10 +120,14 @@ def card(item: dict, indent: str) -> str:
 
     # The stretched link: .go::after covers the card, so a click anywhere that
     # is not another control activates this one.
+    # The last word and the arrow share a nowrap span so a wrapping title
+    # never leaves the arrow alone on the next line.
+    head, _, last = item["name"].rpartition(" ")
+    lead = f"{escape(head)} " if head else ""
     out.append(
-        f'{indent}  <h3 class="name"><a class="go" href="{escape(item["url"])}">{name}'
-        f'<span class="sr-only"> — {ACTIONS[action]}</span>'
-        f'<span class="arrow" aria-hidden="true">→</span></a></h3>'
+        f'{indent}  <h3 class="name"><a class="go" href="{escape(item["url"])}">{lead}'
+        f'<span class="tail">{escape(last)}<span class="arrow" aria-hidden="true">→</span></span>'
+        f'<span class="sr-only"> — {ACTIONS[action]}</span></a></h3>'
     )
     out.append(f'{indent}  <p class="summary">{escape(item["summary"])}</p>')
 
