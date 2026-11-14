@@ -1,0 +1,16 @@
+{
+  "name": "fschmutz-github-io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development tooling for fschmutz.github.io. The site itself ships no dependencies; this is only here so tools/flow-check.mjs can drive a real browser.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "check": "python3 tools/check.py && npm run check:flow",
+    "check:flow": "node tools/flow-check.mjs",
+    "build": "python3 tools/site.py build"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1"
+  }
+}
