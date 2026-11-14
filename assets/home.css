@@ -1,56 +1,148 @@
-/* Slate surfaces, one indigo accent, dark by default — same family as the Arcade pages. */
+/* Falco Schmutz — fschmutz.github.io
+   One token block, theme chosen by light-dark(). The first declaration in each
+   pair is the plain fallback for engines without light-dark(); the second wins
+   everywhere else. System fonts only, no webfont, no third-party anything. */
 
-html { color-scheme: dark; }
-html:not(.dark) { color-scheme: light; }
+:root {
+  color-scheme: light dark;
 
-/* SVG elements do not get the UA rule for the hidden attribute. */
+  --bg: #f7f8fc;
+  --bg: light-dark(#f7f8fc, #0a0a0f);
+  --surface: #ffffff;
+  --surface: light-dark(#ffffff, #0f172a);
+  --surface-sunken: #f1f5f9;
+  --surface-sunken: light-dark(#f1f5f9, #0b1220);
+  --line: #e2e8f0;
+  --line: light-dark(#e2e8f0, #1e293b);
+  --line-strong: #cbd5e1;
+  --line-strong: light-dark(#cbd5e1, #334155);
+
+  --ink: #0f172a;
+  --ink: light-dark(#0f172a, #e2e8f0);
+  /* Both muted tones clear 7:1 against the card surface and against the
+     lightest pixel of the gradient wash, in both themes. */
+  --ink-muted: #404d5e;
+  --ink-muted: light-dark(#404d5e, #b0bdcf);
+  --ink-faint: #475569;
+  --ink-faint: light-dark(#475569, #9babc0);
+
+  --accent: #4338ca;
+  --accent: light-dark(#4338ca, #a5b4fc);
+  --accent-line: #6366f1;
+  --accent-line: light-dark(#6366f1, #818cf8);
+  --accent-wash: rgba(99, 102, 241, 0.1);
+  --accent-wash: light-dark(rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.16));
+
+  /* Skip link. Dark mode fills it light and writes dark on it: white on any
+     indigo dark enough to sit on #0a0a0f only reaches about 4.5:1. */
+  --btn-bg: #4338ca;
+  --btn-bg: light-dark(#4338ca, #a5b4fc);
+  --btn-ink: #ffffff;
+  --btn-ink: light-dark(#ffffff, #0b1220);
+
+  --tag-bg: #eef2ff;
+  --tag-bg: light-dark(#eef2ff, #1e2545);
+  --tag-ink: #3730a3;
+  --tag-ink: light-dark(#3730a3, #c7d2fe);
+
+  --card-shadow: rgba(15, 23, 42, 0.12);
+  --card-shadow: light-dark(rgba(15, 23, 42, 0.12), rgba(0, 0, 0, 0.5));
+
+  --glow-indigo: rgba(99, 102, 241, 0.1);
+  --glow-indigo: light-dark(rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.14));
+  --glow-pink: rgba(236, 72, 153, 0.06);
+  --glow-pink: light-dark(rgba(236, 72, 153, 0.06), rgba(236, 72, 153, 0.09));
+  --glow-cyan: rgba(34, 211, 238, 0.05);
+  --glow-cyan: light-dark(rgba(34, 211, 238, 0.05), rgba(34, 211, 238, 0.1));
+
+  /* Every stop clears 7:1 on its theme's background, so the clipped text
+     stays readable wherever the gradient happens to land. */
+  --name-gradient: linear-gradient(90deg, #4338ca, #9f1239, #0e5064);
+  --name-gradient: light-dark(
+    linear-gradient(90deg, #4338ca, #9f1239, #0e5064),
+    linear-gradient(90deg, #a5b4fc, #f9a8d4, #67e8f9)
+  );
+}
+
+/* The toggle is an override of the media query, nothing more. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* SVG elements get no UA rule for the hidden attribute. */
 [hidden] { display: none !important; }
 
-html, body {
-  font-family: -apple-system, BlinkMacSystemFont, "Inter var", Inter, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
+  padding: 20px 12px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  padding: 28px 16px 24px;
-  box-sizing: border-box;
-  background: #0a0a0f;
-  color: #e2e8f0;
+  background-color: var(--bg);
   background-image:
-    radial-gradient(at 12% 14%, rgba(99, 102, 241, 0.14) 0, transparent 45%),
-    radial-gradient(at 88% 10%, rgba(236, 72, 153, 0.09) 0, transparent 50%),
-    radial-gradient(at 50% 96%, rgba(34, 211, 238, 0.10) 0, transparent 45%);
+    radial-gradient(at 12% 14%, var(--glow-indigo) 0, transparent 45%),
+    radial-gradient(at 88% 10%, var(--glow-pink) 0, transparent 50%),
+    radial-gradient(at 50% 96%, var(--glow-cyan) 0, transparent 45%);
   background-attachment: fixed;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
-
-html:not(.dark) body {
-  background: #f6f7fb;
-  color: #0f172a;
-  background-image:
-    radial-gradient(at 12% 14%, rgba(99, 102, 241, 0.10) 0, transparent 45%),
-    radial-gradient(at 88% 10%, rgba(236, 72, 153, 0.06) 0, transparent 50%);
-}
-
-a { color: inherit; }
-:focus-visible { outline: 2px solid #818cf8; outline-offset: 3px; border-radius: 4px; }
-html:not(.dark) :focus-visible { outline-color: #4f46e5; }
-
 body.center { justify-content: center; }
 
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translate(-50%, -200%);
+  z-index: 10;
+  padding: 10px 16px;
+  border-radius: 0.5rem;
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip:focus { transform: translate(-50%, 0); }
+
 .shell {
-  width: min(94vw, 1120px);
+  width: min(100%, 1120px);
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
 
-/* Header */
+/* ---------------------------------------------------------------- header */
+
+.masthead { display: flex; flex-direction: column; gap: 18px; }
+
 .bar {
   display: flex;
   flex-wrap: wrap;
@@ -58,183 +150,327 @@ body.center { justify-content: center; }
   justify-content: space-between;
   gap: 12px;
 }
-.bar .title { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.bar h1 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
-.bar .role {
+.who { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.bar h1 { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.role {
   margin: 2px 0 0;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #94a3b8;
+  color: var(--ink-muted);
 }
-html:not(.dark) .bar .role { color: #475569; }
-.mark { flex: none; width: 40px; height: 40px; border-radius: 0.6rem; }
-.actions { display: flex; align-items: center; gap: 8px; }
+.mark { flex: none; width: 38px; height: 38px; border-radius: 0.6rem; }
 
+.actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #334155;
-  border-radius: 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.55rem;
   background: transparent;
-  color: inherit;
+  color: var(--ink);
   cursor: pointer;
   text-decoration: none;
 }
-html:not(.dark) .icon-btn { border-color: #e2e8f0; }
-.icon-btn:hover { background: rgba(99, 102, 241, 0.14); border-color: #6366f1; }
+.icon-btn:hover { background: var(--accent-wash); border-color: var(--accent-line); }
 
-/* Intro */
+/* The toggle ships hidden: assets/site.js reveals it, and swaps the icon for
+   whichever theme the next click would give you. */
+.theme-toggle svg { display: block; }
+
+/* ---------------------------------------------------------------- intro */
+
 .intro {
   margin: 0;
-  max-width: 68ch;
-  font-size: 1rem;
+  max-width: 62ch;
+  font-size: 0.97rem;
   line-height: 1.6;
-  color: #94a3b8;
+  color: var(--ink-muted);
 }
-html:not(.dark) .intro { color: #475569; }
-.intro strong { color: #e2e8f0; font-weight: 600; }
-html:not(.dark) .intro strong { color: #0f172a; }
+.intro strong { color: var(--ink); font-weight: 650; }
 
-/* Card grid: one column on a phone, then as many 250px tracks as fit. */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 14px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+/* ---------------------------------------------------------------- groups */
 
-.card {
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 0.6rem;
-  padding: 0.9rem;
-}
-html:not(.dark) .card { background: #fff; border-color: #e2e8f0; }
+main { display: flex; flex-direction: column; gap: 26px; }
 
-.project {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-.project:hover { transform: translateY(-2px); border-color: #818cf8; }
-html:not(.dark) .project:hover { border-color: #6366f1; }
-
-.project .thumb {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 0.4rem;
-  border: 1px solid #1e293b;
-}
-html:not(.dark) .project .thumb { border-color: #e2e8f0; }
-
-.project .kind {
-  margin: 2px 0 0;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: #94a3b8;
-}
-html:not(.dark) .project .kind { color: #64748b; }
-.project h2 { margin: 0; font-size: 1.05rem; letter-spacing: -0.01em; }
-.project p.blurb { margin: 0; font-size: 0.85rem; line-height: 1.55; color: #94a3b8; }
-html:not(.dark) .project p.blurb { color: #475569; }
-
-.project .links {
-  margin-top: auto;
-  padding-top: 4px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-.project .open { color: #a5b4fc; text-decoration: none; }
-html:not(.dark) .project .open { color: #4f46e5; }
-.project .open:hover { text-decoration: underline; }
-.project .source { color: #94a3b8; font-weight: 500; text-decoration: none; }
-html:not(.dark) .project .source { color: #64748b; }
-.project .source:hover { color: #22d3ee; text-decoration: underline; }
-html:not(.dark) .project .source:hover { color: #0e7490; }
-
-/* Footer */
-.foot {
+.group-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 6px 16px;
-  margin-top: 6px;
-  padding-top: 14px;
-  border-top: 1px solid #1e293b;
-  font-size: 0.8rem;
-  color: #94a3b8;
+  gap: 2px 12px;
+  margin-bottom: 11px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
 }
-html:not(.dark) .foot { border-top-color: #e2e8f0; color: #475569; }
-.foot .name {
+.group-head h2 {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.group-tagline { margin: 0; font-size: 0.8rem; line-height: 1.45; color: var(--ink-faint); }
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------- card */
+
+/* Phones first: thumbnail in a narrow left column so ten cards stay scannable.
+   position: relative anchors the stretched link that makes the whole card
+   clickable — see .name .go::after below. */
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(78px, 25vw, 104px) minmax(0, 1fr);
+  grid-template-areas:
+    "thumb kind"
+    "thumb name"
+    "thumb summary"
+    "install install"
+    "links links";
+  align-content: start;
+  column-gap: 11px;
+  row-gap: 3px;
+  padding: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.card:hover { border-color: var(--accent-line); box-shadow: 0 6px 20px var(--card-shadow); }
+
+.thumb {
+  grid-area: thumb;
+  align-self: start;
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+}
+
+.kind {
+  grid-area: kind;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.63rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+.lang {
+  padding: 1px 5px;
+  border-radius: 0.3rem;
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+}
+
+.name { grid-area: name; margin: 0; font-size: 1rem; line-height: 1.25; letter-spacing: -0.01em; }
+/* Inline, not inline-flex: the arrow has to follow the last word when the
+   title wraps, not drift to the far edge of the card. */
+.name .go { color: inherit; text-decoration: none; }
+/* The stretched link. Everything that has to stay separately clickable —
+   the Source link, the install row — is lifted above it. */
+.name .go::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.card:hover .name .go { color: var(--accent); }
+.arrow { display: inline-block; margin-left: 5px; transition: transform 0.15s ease; }
+.card:hover .arrow { transform: translateX(3px); }
+
+/* Focus belongs to the whole card, since the whole card is the target. */
+@supports selector(:has(*)) {
+  .name .go:focus-visible { outline: none; }
+  .card:has(.name .go:focus-visible) {
+    outline: 2px solid var(--accent-line);
+    outline-offset: 3px;
+    border-color: var(--accent-line);
+  }
+  .card:has(.name .go:focus-visible) .name .go { color: var(--accent); }
+}
+
+.summary {
+  grid-area: summary;
+  margin: 4px 0 0;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+/* Label and Copy share a row so the command itself gets the full card width.
+   z-index keeps the command selectable through the card's stretched link. */
+.install {
+  grid-area: install;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 5px 8px;
+  margin-top: 10px;
+}
+.install-label {
+  grid-area: 1 / 1;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+.install code {
+  grid-area: 2 / 1 / 3 / 3;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.69rem;
+  cursor: text;
+  /* Wrapping, not scrolling: a scrollable box is a region axe rightly asks to
+     be focusable, and the command fits on one line in a full-width card. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.copy {
+  grid-area: 1 / 2;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.copy:hover { background: var(--accent-wash); border-color: var(--accent-line); color: var(--ink); }
+
+/* Secondary action, lifted above the stretched link so a click on it goes to
+   GitHub rather than to the app. */
+.links {
+  grid-area: links;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+}
+.src {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: -8px;
+  padding: 6px 8px;
+  border-radius: 0.4rem;
+  color: var(--ink-faint);
+  font-weight: 600;
+  text-decoration: none;
+}
+.src:hover { color: var(--accent); background: var(--accent-wash); text-decoration: underline; }
+
+/* ---------------------------------------------------------------- footer */
+
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px 16px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+.who-name {
   font-weight: 600;
   letter-spacing: 0.05em;
-  background-image: linear-gradient(90deg, #818cf8, #ec4899, #22d3ee);
+  background-image: var(--name-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-/* The pastel gradient washes out on the light background, so darken every stop.
-   Only the image: the shorthand would reset background-clip and paint a block. */
-html:not(.dark) .foot .name { background-image: linear-gradient(90deg, #4f46e5, #be185d, #0e7490); }
-.foot a { color: #94a3b8; text-decoration: none; }
-.foot a:hover { color: #a5b4fc; text-decoration: underline; }
-html:not(.dark) .foot a { color: #475569; }
-html:not(.dark) .foot a:hover { color: #4f46e5; }
+.foot a { color: var(--ink-muted); text-decoration: underline; text-underline-offset: 2px; }
+.foot a:hover { color: var(--accent); }
 
-/* 404 */
-.lost { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+/* ---------------------------------------------------------------- 404 */
+
+.lost { align-items: center; text-align: center; gap: 14px; }
 .lost svg { width: min(88vw, 360px); height: auto; }
 .lost h1 { margin: 0; font-size: 1.4rem; }
-.lost p { margin: 0; color: #94a3b8; }
-html:not(.dark) .lost p { color: #475569; }
-.lost .back { font-weight: 600; color: #a5b4fc; text-decoration: none; }
-html:not(.dark) .lost .back { color: #4f46e5; }
+.lost p { margin: 0; color: var(--ink-muted); }
+.lost .back { font-weight: 600; color: var(--accent); }
 
-/* One column left: lay the card out as a row so eight of them stay scrollable. */
-@media (max-width: 530px) {
-  .project {
-    display: grid;
-    grid-template-columns: 108px 1fr;
-    grid-template-areas:
-      "thumb kind"
-      "thumb name"
-      "thumb blurb"
-      "links links";
-    align-content: start;
-    column-gap: 12px;
-    row-gap: 3px;
-  }
-  .project .thumb { grid-area: thumb; align-self: start; }
-  .project .kind { grid-area: kind; margin: 0; }
-  .project h2 { grid-area: name; }
-  .project .blurb { grid-area: blurb; margin-top: 3px; }
-  .project .links { grid-area: links; margin-top: 10px; padding-top: 0; }
+/* ---------------------------------------------------------------- wider */
+
+@media (min-width: 560px) {
+  body { padding: 28px 18px 24px; }
+  .bar h1 { font-size: 1.3rem; }
+  .intro { font-size: 1.02rem; }
+  .group-head h2 { font-size: 0.82rem; }
+  .foot { flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: space-between; }
 }
 
-@media (max-width: 480px) {
-  body { padding: 18px 12px 18px; gap: 14px; }
-  .shell { gap: 18px; }
-  .bar h1 { font-size: 1.15rem; }
-  .intro { font-size: 0.93rem; }
-  .foot { flex-direction: column; }
+/* Only once a card can hold a readable full-width thumbnail is it worth
+   stacking it; below this the phone layout is the better use of the width. */
+@media (min-width: 680px) {
+  .cards { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 13px; }
+
+  /* Room for a full-width thumbnail: stack the card instead. */
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "thumb" "kind" "name" "summary" "install" "links";
+    align-content: stretch;
+    row-gap: 7px;
+    padding: 0.85rem;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .thumb { margin-bottom: 1px; }
+  .kind { margin-top: 1px; }
+  .summary { margin-top: 0; }
+  .links { margin-top: auto; padding-top: 4px; }
+}
+
+/* Three is the widest the grid goes: a fourth track makes a two-card group
+   look like a mistake, and a 360px card reads better than a 270px one. */
+@media (min-width: 1000px) {
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+  .group-head { margin-bottom: 13px; }
+  .name { font-size: 1.05rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project { transition: none; }
-  .project:hover { transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .card:hover { transform: none; }
+  .card:hover .arrow { transform: none; }
 }

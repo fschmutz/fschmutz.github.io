@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,14 +7,15 @@
   <meta name="robots" content="noindex">
   <title>Page not found — Falco Schmutz</title>
   <meta name="description" content="This page does not exist. Head back to the project list.">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#f7f8fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/home.css">
-  <script src="/assets/theme-boot.js"></script>
+  <script src="/assets/boot.js"></script>
 </head>
 <body class="center">
-  <div class="shell lost">
-    <svg viewBox="0 0 240 120" aria-hidden="true">
+  <main class="shell lost">
+    <svg viewBox="0 0 240 120" aria-hidden="true" focusable="false">
       <rect width="240" height="120" rx="8" fill="#0b1220"/>
       <g fill="#6366f1">
         <rect x="26" y="34" width="14" height="14" rx="3" opacity="0.55"/>
@@ -28,6 +29,6 @@
     <h1>Nothing here</h1>
     <p>That page moved, or never existed.</p>
     <p><a class="back" href="/">Back to the projects <span aria-hidden="true">→</span></a></p>
-  </div>
+  </main>
 </body>
 </html>
