@@ -120,7 +120,11 @@ the pull request merges.
 asserts that a click on an empty corner and a click on the thumbnail both open the
 project's URL, that the `Source` link opens the repository instead, that the install
 command and its Copy button are not swallowed by the overlay, and that <kbd>Tab</kbd>
-reaches the card link and then its `Source` link. It starts its own static server on a
+reaches the card link and then its `Source` link. A hit-test samples every card on a 6 px
+grid at 320, 390 and 1280 px, light and dark: `elementFromPoint` must land on the card's
+link or on one of the three lifted controls, so a dead strip anywhere fails the build. It
+proves itself by planting the old bug (the rows lifted whole) and requiring every affected
+card to be flagged. The same pass fails a group that leaves an empty grid track. It starts its own static server on a
 loopback port and answers every other host with a stub, so no click in it touches the
 network. Playwright is the one development dependency — pinned in `package-lock.json`,
 never shipped to the site.
@@ -139,8 +143,11 @@ Instead the card's heading link covers the card:
 ```css
 .card            { position: relative; }      /* the containing block */
 .name .go::after { content: ""; position: absolute; inset: 0; z-index: 1; }
-.links, .install { position: relative; z-index: 2; }   /* above the overlay */
+.src, .install code, .copy { position: relative; z-index: 2; }   /* above the overlay */
 ```
+
+Only those three boxes are lifted, never the rows that hold them: a lifted `.links` or
+`.install` row is a full-width strip that swallows clicks meant for the card.
 
 So there is exactly one link per card in the tab order, plus `Source`, and the hover and
 focus states belong to the card: `.card:hover` and `.card:has(.name .go:focus-visible)`,

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Drives a real browser over the one thing CSS cannot prove on its own: the
-// whole card is a link to the project, the Source link below it still goes to
-// GitHub, and the install command is not swallowed by the overlay.
+// whole card is a link to the project, every empty pixel of it included, the
+// Source link below it still goes to GitHub, and the install command is not
+// swallowed by the overlay.
 //
 //     npm ci && npx playwright install chromium && node tools/flow-check.mjs
 //
@@ -55,13 +56,21 @@ const items = projects.groups.flatMap((group) => group.items);
 const { server, base } = await serve();
 const browser = await chromium.launch();
 
-async function open(options = {}) {
+async function open({ plantCss, ...options } = {}) {
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, ...options });
   const page = await context.newPage();
+  // The self-checks below plant a known bug in the real stylesheet. Served
+  // from the file, it goes through the page's own CSP like the original.
+  if (plantCss) {
+    await page.route(`${base}/assets/home.css`, async (route) => {
+      const css = await readFile(join(ROOT, 'assets/home.css'), 'utf8');
+      await route.fulfill({ status: 200, contentType: 'text/css; charset=utf-8', body: `${css}\n${plantCss}\n` });
+    });
+  }
   // Everything off the local server is answered here: clicks are measured by
   // the URL the browser asked for, and no request reaches the internet.
   await page.route('**/*', (route) => {
-    if (route.request().url().startsWith(base)) return route.continue();
+    if (route.request().url().startsWith(base)) return route.fallback();
     return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>stub</title>' });
   });
   await page.goto(base + '/', { waitUntil: 'networkidle' });
@@ -137,6 +146,93 @@ console.log(`cards — ${items.length} projects, served from ${base}`);
     } else {
       fail(`${item.name}: Source did not open ${item.source}`);
     }
+  }
+  await context.close();
+}
+
+// ------------------------------------------------------------ hit-test
+// "Click anywhere on the card" is checked pixel by pixel, not at a couple of
+// chosen points: every ~6px across each card, whatever the browser puts on
+// top has to be the card's own link (its stretched ::after) or one of the
+// three controls deliberately lifted above it. A lifted row — .links or
+// .install with a z-index — shows up here as a dead strip.
+const STEP = 6;
+const LIFTED = '.src, .install code, .copy';
+
+/** Every sample point in every card that does not reach the card's link. */
+async function deadPoints(page) {
+  const dead = [];
+  const count = await page.locator('.card').count();
+  for (let index = 0; index < count; index += 1) {
+    const card = page.locator('.card').nth(index);
+    await card.scrollIntoViewIfNeeded();
+    const found = await card.evaluate((element, [step, lifted]) => {
+      const go = element.querySelector('.name .go');
+      const box = element.getBoundingClientRect();
+      const misses = [];
+      let total = 0;
+      // Two pixels in from the edge: the 1px border is the card's, not the link's.
+      for (let y = box.top + 2; y <= box.bottom - 2; y += step) {
+        for (let x = box.left + 2; x <= box.right - 2; x += step) {
+          total += 1;
+          const hit = document.elementFromPoint(x, y);
+          if (!hit) { misses.push({ x, y, what: 'nothing' }); continue; }
+          if (go.contains(hit)) continue;
+          const control = hit.closest(lifted);
+          if (control && element.contains(control)) continue;
+          const what = hit.tagName.toLowerCase() + (hit.className ? '.' + String(hit.className).split(' ')[0] : '');
+          misses.push({ x: Math.round(x - box.left), y: Math.round(y - box.top), what });
+        }
+      }
+      return { total, misses };
+    }, [STEP, LIFTED]);
+    if (found.misses.length) dead.push({ name: items[index]?.name ?? `card ${index + 1}`, ...found });
+  }
+  return dead;
+}
+
+const VIEWPORTS = [320, 390, 1280];
+const SCHEMES = ['light', 'dark'];
+
+console.log(`hit-test — every ${STEP}px of every card opens it, at ${VIEWPORTS.join(', ')} px, light and dark`);
+for (const width of VIEWPORTS) {
+  for (const colorScheme of SCHEMES) {
+    const { context, page } = await open({ viewport: { width, height: 900 }, colorScheme });
+    const dead = await deadPoints(page);
+    if (!dead.length) pass(`${width}px ${colorScheme}: no dead point in any card`);
+    for (const card of dead) {
+      const first = card.misses[0];
+      fail(`${width}px ${colorScheme}: ${card.name} has ${card.misses.length}/${card.total} dead points, e.g. (${first.x}, ${first.y}) hits <${first.what}>`);
+    }
+    // Same pass, same widths: a group whose cards do not fill their last row
+    // leaves an empty track that reads as a missing project.
+    const rows = await page.locator('.cards').evaluateAll((lists) => lists.map((list) => ({
+      group: list.closest('.group')?.querySelector('h2')?.textContent ?? '?',
+      cards: list.children.length,
+      columns: getComputedStyle(list).gridTemplateColumns.split(' ').length,
+    })));
+    const ragged = rows.filter((row) => row.cards % row.columns !== 0);
+    if (!ragged.length) pass(`${width}px ${colorScheme}: every group fills its last row`);
+    for (const row of ragged) fail(`${width}px ${colorScheme}: ${row.group} puts ${row.cards} cards in ${row.columns} columns and leaves a gap`);
+    await context.close();
+  }
+}
+
+// The hit-test has to bite. Put back the bug it was written for — the Source
+// row and the install row lifted whole — and it must report every card that
+// has one of them. If it stays quiet, the test is broken, not the page.
+console.log('hit-test self-check — a lifted .links / .install row must be caught');
+{
+  const { context, page } = await open({
+    viewport: { width: 390, height: 900 },
+    plantCss: '.links, .install { position: relative; z-index: 2; }',
+  });
+  const dead = await deadPoints(page);
+  const expected = await page.locator('.card').filter({ has: page.locator('.links, .install') }).count();
+  if (expected > 0 && dead.length === expected) {
+    pass(`with the rows lifted, the hit-test flags all ${expected} cards that have one`);
+  } else {
+    fail(`with the rows lifted, the hit-test flagged ${dead.length} cards, expected ${expected}: it would not catch the regression`);
   }
   await context.close();
 }
