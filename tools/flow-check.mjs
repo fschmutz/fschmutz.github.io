@@ -272,7 +272,8 @@ function report(dead, label) {
   return dead.reduce((sum, card) => sum + card.misses.length, 0);
 }
 
-const VIEWPORTS = [320, 390, 1280];
+// Phones, the two-column tablet range, and desktop.
+const VIEWPORTS = [320, 390, 768, 900, 1280];
 const SCHEMES = ['light', 'dark'];
 // Where a mouse is likely, so where :hover is: the hovered pass runs here.
 const HOVER_VIEWPORTS = [768, 1024, 1280];
