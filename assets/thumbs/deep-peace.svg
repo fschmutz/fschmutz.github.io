@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150">
+  <defs>
+    <radialGradient id="deep-peace-core">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0.18"/>
+    </radialGradient>
+  </defs>
+  <rect width="240" height="150" fill="#0b1220"/>
+  <circle cx="70" cy="79" r="46" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="70" cy="79" r="36" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="70" cy="79" r="26" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.7"/>
+  <circle cx="70" cy="79" r="18" fill="url(#deep-peace-core)"/>
+  <circle cx="70" cy="43" r="4.5" fill="#22d3ee"/>
+  <g font-family="ui-monospace, monospace" font-size="11" font-weight="700">
+    <path d="M146 30 h48" stroke="#334155" stroke-width="1.5" stroke-dasharray="3 5"/>
+    <circle cx="134" cy="30" r="9" fill="#111c2f" stroke="#475569" stroke-width="1.5"/>
+    <text x="134" y="34" text-anchor="middle" fill="#94a3b8">L</text>
+    <circle cx="206" cy="30" r="9" fill="#111c2f" stroke="#475569" stroke-width="1.5"/>
+    <text x="206" y="34" text-anchor="middle" fill="#94a3b8">R</text>
+  </g>
+  <path d="M126 79 C142 38 158 38 174 79 C190 120 206 120 222 79" fill="none" stroke="#a5b4fc" stroke-width="3" stroke-linecap="round"/>
+  <path d="M126 79 C142 55 158 55 174 79 C190 103 206 103 222 79" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+  <g fill="#1e293b">
+    <rect x="126" y="122" width="28" height="9" rx="4.5"/>
+    <rect x="158" y="122" width="28" height="9" rx="4.5"/>
+  </g>
+  <rect x="190" y="122" width="32" height="9" rx="4.5" fill="#6366f1"/>
+</svg>
