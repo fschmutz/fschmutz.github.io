@@ -122,10 +122,14 @@ project's URL, that the `Source` link opens the repository instead, that the ins
 command and its Copy button are not swallowed by the overlay, and that <kbd>Tab</kbd>
 reaches the card link and then its `Source` link. A hit-test samples every card on a 6 px
 grid at 320, 390 and 1280 px, light and dark: `elementFromPoint` must land on the card's
-link or on one of the three lifted controls, so a dead strip anywhere fails the build. It
-proves itself by planting the old bug (the rows lifted whole) and requiring every affected
-card to be flagged. The same pass fails a group that leaves an empty grid track. It starts its own static server on a
-loopback port and answers every other host with a stub, so no click in it touches the
+link or on one of the three lifted controls, so a dead strip anywhere fails the build. The
+same pass fails a group that leaves an empty grid track. A hovered pass repeats the grid at
+768, 1024 and 1280 px with each card in `:hover` (forced through DevTools), and moves the
+real mouse onto every point of its last row and column, so a hover effect that moves the
+card out from under the pointer fails too. Both prove themselves on every run by planting
+the bug they were written for into the real stylesheet: the Source and install rows lifted
+whole, and a `translateY` hover lift. Each must be flagged on every card. It starts its own
+static server on a loopback port and answers every other host with a stub, so no click in it touches the
 network. Playwright is the one development dependency — pinned in `package-lock.json`,
 never shipped to the site.
 
@@ -152,7 +156,8 @@ Only those three boxes are lifted, never the rows that hold them: a lifted `.lin
 So there is exactly one link per card in the tab order, plus `Source`, and the hover and
 focus states belong to the card: `.card:hover` and `.card:has(.name .go:focus-visible)`,
 the latter inside `@supports selector(:has(*))` so the link keeps its own ring where
-`:has()` is missing. `prefers-reduced-motion` drops the lift and the arrow nudge. The
+`:has()` is missing. Hover is a deeper shadow, never a lift, so the card stays under the pointer;
+`prefers-reduced-motion` drops the arrow nudge. The
 trade-off of the pattern is that text under the overlay is not selectable; the install
 command is lifted above it precisely so that it stays so.
 
