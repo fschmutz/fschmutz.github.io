@@ -95,8 +95,9 @@ def draw(data: dict) -> str:
         "  </g>",
         '  <rect x="138" y="138" width="12" height="12" rx="3" fill="#ec4899"/>',
         '  <text x="196" y="124" font-size="60" font-weight="700" fill="#e2e8f0">Falco Schmutz</text>',
+        # The strapline is the group names, so a regrouping cannot leave it stale.
         '  <text x="200" y="152" font-size="20" font-weight="700" letter-spacing="3.4" fill="#94a3b8">'
-        "GAMES · LEARNING · SOUND · DEVELOPER TOOLS</text>",
+        f'{escape(" · ".join(group["name"].upper() for group in groups))}</text>',
         f'  <text x="80" y="226" font-size="34" fill="#cbd5e1">{count} free, open-source things for the browser.</text>',
         '  <text x="80" y="268" font-size="34" fill="#94a3b8">No account, no tracking, most of them work offline.</text>',
     ]

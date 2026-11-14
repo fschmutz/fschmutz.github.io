@@ -39,22 +39,10 @@
   },
   "groups": [
     {
-      "id": "games",
-      "name": "Games",
-      "tagline": "Pick up, play, close the tab. No account, no scoreboard in the cloud.",
+      "id": "learn",
+      "name": "Learn",
+      "tagline": "Drills that fit in a break. Every answer stays on the device.",
       "items": [
-        {
-          "slug": "arcade",
-          "repo": "ARCADE-GAMES",
-          "name": "Arcade",
-          "kind": "Four browser games",
-          "lang": "fr",
-          "summary": "Snake, Pac-Man, a highway racer and Casse-briques in one page, keyboard or thumb, still playable with the network off.",
-          "action": "Play",
-          "url": "https://fschmutz.github.io/ARCADE-GAMES/",
-          "source": "https://github.com/fschmutz/ARCADE-GAMES",
-          "lastmod": "2026-11-09"
-        },
         {
           "slug": "calcul-flash",
           "repo": "calcul-flash",
@@ -66,25 +54,6 @@
           "url": "https://fschmutz.github.io/calcul-flash/",
           "source": "https://github.com/fschmutz/calcul-flash",
           "lastmod": "2026-09-24"
-        }
-      ]
-    },
-    {
-      "id": "learning",
-      "name": "Learning",
-      "tagline": "Drills that fit in a break. Every answer stays on the device.",
-      "items": [
-        {
-          "slug": "shortcut-flash",
-          "repo": "shortcut-flash",
-          "name": "Raccourcis Flash",
-          "kind": "Keyboard shortcuts",
-          "lang": "fr",
-          "summary": "A quest, a handful of missions and a boss fight that drill keyboard shortcuts into 10 to 15 year olds.",
-          "action": "Play",
-          "url": "https://fschmutz.github.io/shortcut-flash/",
-          "source": "https://github.com/fschmutz/shortcut-flash",
-          "lastmod": "2026-09-08"
         },
         {
           "slug": "physique-flash",
@@ -111,6 +80,18 @@
           "lastmod": "2026-11-14"
         },
         {
+          "slug": "shortcut-flash",
+          "repo": "shortcut-flash",
+          "name": "Raccourcis Flash",
+          "kind": "Keyboard shortcuts",
+          "lang": "fr",
+          "summary": "A quest, a handful of missions and a boss fight that drill keyboard shortcuts into 10 to 15 year olds.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/shortcut-flash/",
+          "source": "https://github.com/fschmutz/shortcut-flash",
+          "lastmod": "2026-09-08"
+        },
+        {
           "slug": "deonto-flash",
           "repo": "deonto-flash",
           "name": "Déonto Flash",
@@ -125,9 +106,40 @@
       ]
     },
     {
-      "id": "sound",
-      "name": "Sound & voice",
-      "tagline": "Web Audio, headphones on. Nothing is recorded or uploaded.",
+      "id": "play",
+      "name": "Play",
+      "tagline": "Pick up, play, close the tab. No account, no scoreboard in the cloud.",
+      "items": [
+        {
+          "slug": "arcade",
+          "repo": "ARCADE-GAMES",
+          "name": "Arcade",
+          "kind": "Four browser games",
+          "lang": "fr",
+          "summary": "Snake, Pac-Man, a highway racer and Casse-briques in one page, keyboard or thumb, still playable with the network off.",
+          "action": "Play",
+          "url": "https://fschmutz.github.io/ARCADE-GAMES/",
+          "source": "https://github.com/fschmutz/ARCADE-GAMES",
+          "lastmod": "2026-11-09"
+        },
+        {
+          "slug": "founder-bot-meme",
+          "repo": "founder-bot-meme",
+          "name": "Founder Bot",
+          "kind": "Meme, one PNG",
+          "lang": null,
+          "summary": "The 23:00 question every founder eventually asks: hire another human, or a specialist bot?",
+          "action": "View",
+          "url": "https://github.com/fschmutz/founder-bot-meme/blob/main/falco-founder-bot-meme.png",
+          "source": "https://github.com/fschmutz/founder-bot-meme",
+          "lastmod": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "tool",
+      "name": "Tool",
+      "tagline": "Small things that do one job, in a tab or on your own machine. Nothing is uploaded.",
       "items": [
         {
           "slug": "deep-peace",
@@ -152,14 +164,7 @@
           "url": "https://fschmutz.github.io/vocal-range-detector/",
           "source": "https://github.com/fschmutz/vocal-range-detector",
           "lastmod": "2026-08-19"
-        }
-      ]
-    },
-    {
-      "id": "developer-tools",
-      "name": "Developer tools",
-      "tagline": "Things that live on your own machine.",
-      "items": [
+        },
         {
           "slug": "claude-usage-panel",
           "repo": "claude-usage-panel",
@@ -177,25 +182,6 @@
             "note": "Cask published by the release workflow to the fschmutz/homebrew-tap repository.",
             "tap": "https://github.com/fschmutz/homebrew-tap"
           }
-        }
-      ]
-    },
-    {
-      "id": "odds-and-ends",
-      "name": "Odds & ends",
-      "tagline": "Small enough to be one file.",
-      "items": [
-        {
-          "slug": "founder-bot-meme",
-          "repo": "founder-bot-meme",
-          "name": "Founder Bot",
-          "kind": "Meme, one PNG",
-          "lang": null,
-          "summary": "The 23:00 question every founder eventually asks: hire another human, or a specialist bot?",
-          "action": "View",
-          "url": "https://github.com/fschmutz/founder-bot-meme/blob/main/falco-founder-bot-meme.png",
-          "source": "https://github.com/fschmutz/founder-bot-meme",
-          "lastmod": "2026-09-18"
         }
       ]
     }

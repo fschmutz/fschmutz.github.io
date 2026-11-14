@@ -8,20 +8,8 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fschmutz.github.io/ARCADE-GAMES/</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://fschmutz.github.io/calcul-flash/</loc>
     <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://fschmutz.github.io/shortcut-flash/</loc>
-    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -38,8 +26,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://fschmutz.github.io/shortcut-flash/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://fschmutz.github.io/deonto-flash/</loc>
     <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fschmutz.github.io/ARCADE-GAMES/</loc>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
