@@ -319,11 +319,11 @@ main { display: flex; flex-direction: column; gap: 26px; }
 }
 
 /* Label and Copy share a row so the command itself gets the full card width.
-   z-index keeps the command selectable through the card's stretched link. */
+   The row stays under the card's stretched link: only the command and the
+   Copy button are lifted (next to .src below), so the label and the gaps
+   around them still open the card. */
 .install {
   grid-area: install;
-  position: relative;
-  z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -368,12 +368,10 @@ main { display: flex; flex-direction: column; gap: 26px; }
 }
 .copy:hover { background: var(--accent-wash); border-color: var(--accent-line); color: var(--ink); }
 
-/* Secondary action, lifted above the stretched link so a click on it goes to
-   GitHub rather than to the app. */
+/* The row is not lifted, only the Source link inside it: the rest of the
+   strip belongs to the card like every other empty pixel. */
 .links {
   grid-area: links;
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -393,6 +391,17 @@ main { display: flex; flex-direction: column; gap: 26px; }
   text-decoration: none;
 }
 .src:hover { color: var(--accent); background: var(--accent-wash); text-decoration: underline; }
+
+/* The only things above the stretched link: Source, the install command (so
+   it can be selected) and Copy. Each is lifted on its own box, never on its
+   row — a lifted row is a dead strip across the card. tools/flow-check.mjs
+   samples every card on a grid to keep it that way. */
+.src,
+.install code,
+.copy {
+  position: relative;
+  z-index: 2;
+}
 
 /* ---------------------------------------------------------------- footer */
 
